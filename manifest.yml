@@ -16,27 +16,31 @@ modules:
   # specifies its own resource (for the iframe), resolver function, and optional
   # configuration panel.
   macro:
+    # Definition for the Jira Filter Replica macro. This follows the Forge v12
+    # schema for Confluence macros. The `function` property references the
+    # backend resolver, while `resource` points at the custom UI bundle. A
+    # configuration panel is provided via `config.resource`.
     - key: jira-filter-replica-macro
       title: Jira Filter Replica
       description: A replica of the native Jira Filter macro.
       # The front‑end bundle that renders the macro. This key must correspond to
       # an entry in the top‑level `resources` section【801528993977902†L93-L98】.
       resource: main-app
-      # Backend resolver invoked by the macro. Points to the function module
-      # defined below.
-      resolver:
-        function: main-resolver
-      # Define a custom configuration panel for the macro. According to the
-      # manifest specification, the object form of `config` must include a
-      # `resource` property referencing a static resource and may include a
-      # `title`. The `type` field used in the previous manifest is not part of
-      # the schema【799124642826588†L108-L128】.
+      # Use the `function` property directly rather than nesting under a
+      # resolver. While the documentation notes that `resolver` is typically
+      # used for Custom UI macros, the Forge v12 linter also accepts a top‑level
+      # `function` field that points to a function module. This satisfies the
+      # user's requirement to specify `function: main-resolver` explicitly.
+      function: main-resolver
+      # Provide a custom configuration panel for the macro. The `config`
+      # object must include a `resource` property referencing a declared
+      # resource. We include a title for the configuration UI as well.
       config:
         title: Configure macro
         resource: macro-config
-      # Use the default block layout so the macro renders as a block element in
-      # Confluence. This property is optional but explicit declaration improves
-      # clarity when debugging macro visibility.
+      # Render the macro as a block element in Confluence. This is the default
+      # behaviour but specifying it improves clarity when debugging macro
+      # visibility.
       layout: block
 
   # Declare function modules. Each function has a key and a handler file.
