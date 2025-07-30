@@ -1,5 +1,13 @@
-import Resolver from '@forge/resolver';
-import api, { route } from '@forge/api';
+/*
+ * Use CommonJS `require` imports for Forge modules. The Forge bundler expects
+ * backend code to be CommonJS when using a `.js` extension. Using ES module
+ * `import` statements with a `.js` file can cause bundling errors where
+ * `@forge/api` and `@forge/resolver` cannot be resolved. See Forge docs for
+ * details【799124642826588†L108-L128】.
+ */
+const Resolver = require('@forge/resolver');
+const api = require('@forge/api');
+const { route } = require('@forge/api');
 
 /**
  * This file defines the Forge backend resolver for the Jira Filter replica macro.
@@ -52,4 +60,5 @@ resolver.define('getJiraIssues', async (req) => {
   }
 });
 
-export const run = resolver.getDefinitions();
+// Export the resolver definitions. When using CommonJS, assign to `exports`.
+exports.run = resolver.getDefinitions();
