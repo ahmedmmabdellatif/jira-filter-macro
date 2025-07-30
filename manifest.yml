@@ -34,6 +34,10 @@ modules:
       config:
         title: Configure macro
         resource: macro-config
+      # Use the default block layout so the macro renders as a block element in
+      # Confluence. This property is optional but explicit declaration improves
+      # clarity when debugging macro visibility.
+      layout: block
 
   # Declare function modules. Each function has a key and a handler file.
   function:
