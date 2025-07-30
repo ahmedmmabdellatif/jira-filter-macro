@@ -68,4 +68,9 @@ permissions:
   # declarations. Remove the deprecated `fetch.backend` entry to satisfy the
   # latest Forge linter【799124642826588†L109-L116】.
   external:
-    fetch: {}
+    # Allow outbound fetch requests to Atlassian’s API domain. This is necessary
+    # because the backend uses `api.asUser().requestJira()` which resolves to
+    # calls to api.atlassian.com. Without listing this domain, requests to
+    # api.atlassian.com may be blocked by Forge’s egress restrictions.
+    fetch:
+      - api.atlassian.com
