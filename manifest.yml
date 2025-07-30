@@ -26,12 +26,12 @@ modules:
       # The front‑end bundle that renders the macro. This key must correspond to
       # an entry in the top‑level `resources` section【801528993977902†L93-L98】.
       resource: main-app
-      # Use the `function` property directly rather than nesting under a
-      # resolver. While the documentation notes that `resolver` is typically
-      # used for Custom UI macros, the Forge v12 linter also accepts a top‑level
-      # `function` field that points to a function module. This satisfies the
-      # user's requirement to specify `function: main-resolver` explicitly.
-      function: main-resolver
+      # Use the `resolver` property to reference the backend function module
+      # that will handle requests from the custom UI. Custom UI macros must
+      # specify their resolver in this nested form; top-level `function`
+      # definitions are not permitted alongside `resource`【799124642826588†L109-L116】.
+      resolver:
+        function: main-resolver
       # Provide a custom configuration panel for the macro. The `config`
       # object must include a `resource` property referencing a declared
       # resource. We include a title for the configuration UI as well.
