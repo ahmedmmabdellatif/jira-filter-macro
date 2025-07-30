@@ -71,6 +71,8 @@ permissions:
     # Allow outbound fetch requests to Atlassian’s API domain. This is necessary
     # because the backend uses `api.asUser().requestJira()` which resolves to
     # calls to api.atlassian.com. Without listing this domain, requests to
-    # api.atlassian.com may be blocked by Forge’s egress restrictions.
+    # api.atlassian.com may be blocked by Forge’s egress restrictions. Use the
+    # `backend` key under `fetch` as per the Forge permissions schema【352577484633717†L328-L356】.
     fetch:
-      - api.atlassian.com
+      backend:
+        - api.atlassian.com
