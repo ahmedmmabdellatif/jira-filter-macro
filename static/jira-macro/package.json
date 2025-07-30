@@ -2,12 +2,17 @@
   "name": "jira-macro-ui",
   "version": "1.0.0",
   "private": true,
+  "homepage": ".",
   "dependencies": {
     "@atlaskit/css-reset": "^6.6.3",
     "@atlaskit/dynamic-table": "^14.10.1",
+    "@atlaskit/form": "^12.0.14",
     "@atlaskit/lozenge": "^11.5.1",
     "@atlaskit/spinner": "^15.6.1",
+    "@atlaskit/textfield": "^8.0.8",
     "@forge/bridge": "^3.3.1",
+    "ajv": "^8.17.1",
+    "ajv-keywords": "^5.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
