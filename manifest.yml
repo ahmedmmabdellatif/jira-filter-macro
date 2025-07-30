@@ -10,9 +10,11 @@ app:
     name: nodejs20.x
 
 modules:
-  # Define a Confluence macro module. Custom UI macros must specify a static
-  # resource for the iframe content via the `resource` property【799124642826588†L109-L116】.
-  confluence:macro:
+  # Define a Confluence macro module. Forge v12 uses the `macro` key rather than
+  # the legacy `confluence:macro` key【799124642826588†L109-L116】. Each macro entry
+  # specifies its own resource (for the iframe), resolver function, and optional
+  # configuration panel.
+  macro:
     - key: jira-filter-replica-macro
       title: Jira Filter Replica
       description: A replica of the native Jira Filter macro.
@@ -23,10 +25,13 @@ modules:
       # defined below.
       resolver:
         function: main-resolver
-      # Configuration for the macro. Custom configuration panels must specify
-      # their own static resource.
+      # Define a custom configuration panel for the macro. According to the
+      # manifest specification, the object form of `config` must include a
+      # `resource` property referencing a static resource and may include a
+      # `title`. The `type` field used in the previous manifest is not part of
+      # the schema【799124642826588†L108-L128】.
       config:
-        type: custom
+        title: Configure macro
         resource: macro-config
 
   # Declare function modules. Each function has a key and a handler file.
@@ -44,9 +49,14 @@ resources:
 
 permissions:
   scopes:
+    # Grant permission to read Jira filters and user data. These scopes are
+    # required to call the Jira REST API via @forge/api【748473698955597†L64-L69】.
     - read:jira-work
     - read:jira-user
+  # The `external` section defines non-Atlassian domains your app can access
+  # using `fetch` in the backend. Calls to Atlassian domains (like
+  # api.atlassian.com) are implicitly allowed and don't require egress
+  # declarations. Remove the deprecated `fetch.backend` entry to satisfy the
+  # latest Forge linter【799124642826588†L109-L116】.
   external:
-    fetch:
-      backend:
-        - api.atlassian.com
+    fetch: {}
