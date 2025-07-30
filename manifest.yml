@@ -1,7 +1,8 @@
 app:
-  # When deploying for the first time, Forge CLI will generate an app ID and
-  # automatically update this field. Leave the placeholder in place for now.
-  id: 'ari:cloud:ecosystem::app/YOUR_UNIQUE_APP_ID'
+  # The `id` field is intentionally omitted. When deploying for the first time,
+  # run `forge register` or `forge deploy` to have the Forge CLI assign a unique
+  # app identifier. The CLI will automatically update your manifest with the
+  # generated app ID once registration completes.
   runtime:
     # Specify the Node.js runtime that backs your functions. The runtime name must
     # include an ".x" suffix; for example, use "nodejs20.x" instead of
