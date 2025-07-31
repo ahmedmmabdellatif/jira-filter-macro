@@ -19,6 +19,5 @@ permissions:
     - write:confluence-content
 
 app:
-  id: ari:cloud:ecosystem::app/temp-placeholder
   runtime:
     name: nodejs20.x
