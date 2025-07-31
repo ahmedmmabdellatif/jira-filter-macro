@@ -1,4 +1,4 @@
-id: ari:cloud:ecosystem::app/{your-unique-app-id}
+id: ari:cloud:ecosystem::app/bb08f7d8-f9e1-4fe7-8e68-07d617515fed
 app:
   runtime:
     name: nodejs20.x
