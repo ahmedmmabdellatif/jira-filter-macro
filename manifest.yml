@@ -15,10 +15,13 @@ modules:
       config:
         resource: macro-config
 resources:
-  main-resolver:
-    path: src/index.js
-  macro-config:
-    path: static/config/index.js
+  function:
+    - key: main-resolver
+      path: src/index.js
+  static:
+    - key: macro-config
+      path: static/config/index.js
 functions:
   main-resolver:
+    key: main-resolver
     handler: index.run
