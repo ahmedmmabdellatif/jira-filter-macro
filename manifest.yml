@@ -1,5 +1,5 @@
-id: ari:cloud:ecosystem::app/bb08f7d8-f9e1-4fe7-8e68-07d617515fed
 app:
+  id: ari:cloud:ecosystem::app/bb08f7d8-f9e1-4fe7-8e68-07d617515fed
   runtime:
     name: nodejs20.x
 permissions:
