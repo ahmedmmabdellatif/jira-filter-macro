@@ -1,22 +1,21 @@
 modules:
   macro:
     - key: jira-filter-replica-macro
-      function: mainFunction
+      function: main-resolver
       title: Jira Filter Replica
-      description: A macro that fetches and displays Jira issues based on JQL.
-      properties:
-        config:
-          function: configFunction
-  function:
-    - key: mainFunction
-      handler: index.run
-    - key: configFunction
-      handler: config.run
-app:
-  id: your-app-id-here
-  name: Jira Filter Replica
+      description: A replica macro to display Jira issues via JQL.
+      config:
+        resource: macro-config
+resources:
+  - key: main-resolver
+    path: src/index.js
+  - key: macro-config
+    path: static/config/index.js
 permissions:
   scopes:
     - read:jira-work
-    - read:confluence-content.all
     - write:confluence-content
+app:
+  id: ari:cloud:ecosystem::app/temp-placeholder
+  runtime:
+    name: nodejs20.x
