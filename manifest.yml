@@ -1,3 +1,12 @@
+modules:
+  macro:
+    - key: jira-filter-replica-macro
+      function: main-resolver
+      title: Jira Filter Replica
+      description: A replica macro to display Jira issues via JQL.
+      config:
+        resource:
+          key: macro-config
 app:
   id: ari:cloud:ecosystem::app/bb08f7d8-f9e1-4fe7-8e68-07d617515fed
   runtime:
@@ -6,15 +15,6 @@ permissions:
   scopes:
     - read:jira-work
     - write:confluence-content
-modules:
-  macro:
-    - key: jira-filter-replica-macro
-      function: main-resolver
-      title: Jira Filter Replica
-      description: A replica macro to display Jira issues via JQL.
-      config:
-        resource:  # Fixed the singular form 'resource' instead of 'resources'
-          key: macro-config
 resources:
   function:
     - key: main-resolver
