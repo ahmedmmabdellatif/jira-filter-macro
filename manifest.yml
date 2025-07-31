@@ -1,3 +1,11 @@
+id: ari:cloud:ecosystem::app/bb08f7d8-f9e1-4fe7-8e68-07d617515fed
+app:
+  runtime:
+    name: nodejs20.x
+permissions:
+  scopes:
+    - read:jira-work
+    - write:confluence-content
 modules:
   macro:
     - key: jira-filter-replica-macro
@@ -5,23 +13,12 @@ modules:
       title: Jira Filter Replica
       description: A replica macro to display Jira issues via JQL.
       config:
-        resource:
-          key: macro-config
-app:
-  id: ari:cloud:ecosystem::app/bb08f7d8-f9e1-4fe7-8e68-07d617515fed
-  runtime:
-    name: nodejs20.x
-permissions:
-  scopes:
-    - read:jira-work
-    - write:confluence-content
+        resource: macro-config
 resources:
-  function:
-    - key: main-resolver
-      path: src/index.js
-  static:
-    - key: macro-config
-      path: static/config/index.js
+  - key: main-resolver
+    path: src/index.js
+  - key: macro-config
+    path: static/config/index.js
 functions:
   main-resolver:
     handler: index.run
