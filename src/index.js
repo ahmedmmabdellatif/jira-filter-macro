@@ -1,35 +1,14 @@
-import api, { route } from "@forge/api";
+import Resolver from '@forge/resolver';
+import api from '@forge/api';
 
-// Main function to resolve the macro
-export const run = async (request) => {
-  const jql = request.extension.params.jql || "project = DEMO";
-  const response = await api.asApp().requestJira(route`/rest/api/3/search`, {
-    method: "GET",
-    headers: {
-      "Accept": "application/json",
-    },
-    params: {
-      jql,
-    },
-  });
+const resolver = new Resolver();
 
-  const data = await response.json();
+resolver.define('main', async (req) => {
+  const jql = req.context.extension.config.jql || 'project = ABC ORDER BY created DESC';
+  const res = await api.asApp().requestJira('/rest/api/3/search?jql=' + encodeURIComponent(jql));
+  const data = await res.json();
+  if (!data.issues) return 'No issues found or JQL invalid.';
+  return data.issues.map(i => `${i.key}: ${i.fields.summary}`).join('\n');
+});
 
-  const issuesHtml = data.issues.map(issue => `<p>${issue.fields.summary} (Key: ${issue.key})</p>`).join('');
-
-  return {
-    body: `<div>${issuesHtml}</div>`,
-  };
-};
-
-// Configuration function for macro
-export const config = async (request) => {
-  return {
-    body: `
-      <div>
-        <label for="jql">JQL Query:</label>
-        <input type="text" id="jql" name="jql" value="" />
-      </div>
-    `,
-  };
-};
+export const handler = resolver.getDefinitions();

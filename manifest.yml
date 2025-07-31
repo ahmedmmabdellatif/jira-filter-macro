@@ -6,15 +6,18 @@ modules:
       description: A replica macro to display Jira issues via JQL.
       config:
         resource: macro-config
+
 resources:
   - key: main-resolver
     path: src/index.js
   - key: macro-config
     path: static/config/index.js
+
 permissions:
   scopes:
     - read:jira-work
     - write:confluence-content
+
 app:
   id: ari:cloud:ecosystem::app/temp-placeholder
   runtime:

@@ -1,9 +1,10 @@
 {
   "name": "jira-filter-macro",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Forge app that replicates the Jira filter macro with a custom UI.",
   "dependencies": {
     "@forge/api": "^6.0.2",
-    "@forge/resolver": "^1.6.15"
+    "@forge/resolver": "^1.6.15",
+    "@forge/ui": "^1.7.0"
   }
 }

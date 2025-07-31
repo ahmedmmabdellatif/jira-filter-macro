@@ -1,11 +1,11 @@
-import ForgeUI, { render, Fragment, TextField, Form, MacroConfig } from '@forge/ui';
+import ForgeUI, { render, TextField, ConfigForm } from '@forge/ui';
 
-const Config = () => (
-  <MacroConfig>
-    <Form>
-      <TextField name="jql" label="JQL Query" description="Enter a JQL query to filter issues" />
-    </Form>
-  </MacroConfig>
-);
+const Config = () => {
+  return (
+    <ConfigForm>
+      <TextField name="jql" label="Enter JQL query" />
+    </ConfigForm>
+  );
+};
 
-export const run = render(<Config />);
+export const config = render(<Config />);
