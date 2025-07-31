@@ -13,8 +13,8 @@ modules:
       title: Jira Filter Replica
       description: A replica macro to display Jira issues via JQL.
       config:
-        resources:
-          - key: macro-config
+        resource:  # Fixed the singular form 'resource' instead of 'resources'
+          key: macro-config
 resources:
   function:
     - key: main-resolver
