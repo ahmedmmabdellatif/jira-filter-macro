@@ -1,78 +1,22 @@
-app:
-  # This application has been registered. The `id` below is the unique identifier
-  # assigned by Atlassian to this app. Forge uses this ID to determine which
-  # app to update on subsequent deployments. Do not change it unless you re-
-  # register your app【799124642826588†L108-L128】.
-  id: "ari:cloud:ecosystem::app/6a630842-c8de-49b3-b687-cc123c69a48d"
-  runtime:
-    # Specify the Node.js runtime that backs your functions. The runtime name must
-    # include an ".x" suffix; for example, use "nodejs20.x" instead of
-    # "nodejs20"【748473698955597†L64-L69】.
-    name: nodejs20.x
-
 modules:
-  # Define a Confluence macro module. Forge v12 uses the `macro` key rather than
-  # the legacy `confluence:macro` key【799124642826588†L109-L116】. Each macro entry
-  # specifies its own resource (for the iframe), resolver function, and optional
-  # configuration panel.
   macro:
-    # Definition for the Jira Filter Replica macro. This follows the Forge v12
-    # schema for Confluence macros. The `function` property references the
-    # backend resolver, while `resource` points at the custom UI bundle. A
-    # configuration panel is provided via `config.resource`.
     - key: jira-filter-replica-macro
+      function: mainFunction
       title: Jira Filter Replica
-      description: A replica of the native Jira Filter macro.
-      # The front‑end bundle that renders the macro. This key must correspond to
-      # an entry in the top‑level `resources` section【801528993977902†L93-L98】.
-      resource: main-app
-      # Use the `resolver` property to reference the backend function module
-      # that will handle requests from the custom UI. Custom UI macros must
-      # specify their resolver in this nested form; top-level `function`
-      # definitions are not permitted alongside `resource`【799124642826588†L109-L116】.
-      resolver:
-        function: main-resolver
-      # Provide a custom configuration panel for the macro. The `config`
-      # object must include a `resource` property referencing a declared
-      # resource. We include a title for the configuration UI as well.
-      config:
-        title: Configure macro
-        resource: macro-config
-      # Render the macro as a block element in Confluence. This is the default
-      # behaviour but specifying it improves clarity when debugging macro
-      # visibility.
-      layout: block
-
-  # Declare function modules. Each function has a key and a handler file.
+      description: A macro that fetches and displays Jira issues based on JQL.
+      properties:
+        config:
+          function: configFunction
   function:
-    - key: main-resolver
+    - key: mainFunction
       handler: index.run
-
-# Static resources used by the macro and its configuration panel. These must be
-# declared at the top level rather than under `modules`【801528993977902†L93-L98】.
-resources:
-  - key: main-app
-    path: static/jira-macro/build
-  - key: macro-config
-    path: static/jira-macro/build
-
+    - key: configFunction
+      handler: config.run
+app:
+  id: your-app-id-here
+  name: Jira Filter Replica
 permissions:
   scopes:
-    # Grant permission to read Jira filters and user data. These scopes are
-    # required to call the Jira REST API via @forge/api【748473698955597†L64-L69】.
     - read:jira-work
-    - read:jira-user
-  # The `external` section defines non-Atlassian domains your app can access
-  # using `fetch` in the backend. Calls to Atlassian domains (like
-  # api.atlassian.com) are implicitly allowed and don't require egress
-  # declarations. Remove the deprecated `fetch.backend` entry to satisfy the
-  # latest Forge linter【799124642826588†L109-L116】.
-  external:
-    # Allow outbound fetch requests to Atlassian’s API domain. This is necessary
-    # because the backend uses `api.asUser().requestJira()` which resolves to
-    # calls to api.atlassian.com. Without listing this domain, requests to
-    # api.atlassian.com may be blocked by Forge’s egress restrictions. Use the
-    # `backend` key under `fetch` as per the Forge permissions schema【352577484633717†L328-L356】.
-    fetch:
-      backend:
-        - api.atlassian.com
+    - read:confluence-content.all
+    - write:confluence-content
